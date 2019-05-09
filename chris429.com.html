@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html data-lt-installed="true">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+</head>
+
+<body>
+
+<button onclick="myWeather()">get my location and weather</button>
+
+<p id="weather">...weather</p>
+
+<p id="location">...location</p>
+
+<p id="test">...test</p>
+
+</body>
+
+<script>
+
+  var link="global";
+
+  function myWeather() { navigator.geolocation.getCurrentPosition(showPosition); }
+
+  function showPosition(position) {
+    
+    document.getElementById("location").innerHTML = "Latitude: " + Math.round(100*position.coords.latitude)/100 + " Longitude: " + Math.round(100*position.coords.longitude)/100;
+
+    link="http://api.openweathermap.org/data/2.5/weather?lat="+position.coords.latitude+"&lon="+position.coords.longitude+"&APPID=ed265fe0885e45f0c6c3032e96a0e613";
+
+    $.getJSON(link,function(json) { 
+	document.getElementById("weather").innerHTML=JSON.stringify(json);
+	});
+
+	}
+
+
+</script>
+
+<script src="chris429.com_files/jquery.js"></script>
+
+</html>
